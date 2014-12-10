@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    xsi:schemaLocation="
+        http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    version="2.5">
+
+
+	<servlet>
+		<servlet-name>definition-controller</servlet-name>
+		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.control.DefinitionController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>definition-controller</servlet-name>
+		<url-pattern>/definition/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>definition-dao</servlet-name>
+		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.model.business.persistence.DefinitionDao</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>definition-dao</servlet-name>
+		<url-pattern>/model/business/wikiretrieve/definition-dao</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>definition-controller-json-view</servlet-name>
+		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.view.DefinitionJsonView</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>definition-controller-json-view</servlet-name>
+		<url-pattern>/view/definition-json-view</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>400-bad-request-view</servlet-name>
+		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.view.Http400BadRequestView</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>400-bad-request-view</servlet-name>
+		<url-pattern>/view/400-bad-request-view</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>404-not-found-view</servlet-name>
+		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.view.Http404NotFoundView</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>404-not-found-view</servlet-name>
+		<url-pattern>/view/404-not-found-view</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>406-not-acceptable-view</servlet-name>
+		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.view.Http406NotAcceptableView</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>406-not-acceptable-view</servlet-name>
+		<url-pattern>/view/406-not-acceptable-view</url-pattern>
+	</servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Internal URLs</web-resource-name>
+			<url-pattern>/model/*</url-pattern>
+			<url-pattern>/view/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+</web-app>

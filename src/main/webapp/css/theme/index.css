@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial,Helvetica,sans-serif;
+}
+
+legend {
+	font-weight: bold;
+}
+
+input {
+	font-family: Arial,Helvetica,sans-serif;
+	border-color: #8E8F8F;
+}
+
+#logo {
+	font-weight: bold;
+}
+
+.logo-netdb{
+	color: #426BDF;
+}
+
+.logo-a {
+	color: #D63627;
+}
+
+.logo-s {
+	color: #F7AA07;
+}
+
+.logo-k {
+	color: #35AA47;
+}
+
+/*
+#answer {
+	background: rgba(0%,0%,90%,0.05);
+}
+*/
+
+.footer {
+	color: #5E5F5F;
+}

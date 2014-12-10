@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+body {
+	overflow-y: scroll;
+	font-size: 14px;
+}
+
+input {
+	font-size: 14px;
+	border-style: solid;
+	border-width: 1px;
+	margin: 0;
+	padding: 2px;
+}
+
+#logo {
+	text-align: center;
+	font-size: 36px;
+	padding: 8px;
+}
+
+.content-hidden {
+	display: none;
+}
+
+.main-area {
+	/*float: center;*/
+	margin:0 auto;
+ 	margin-top: 200px;
+}
+
+.askbar {
+	text-align: center;
+	margin-top: 8px;
+}
+
+.inputarea {
+	width: 80%;
+	overflow: hidden;
+}
+
+#askinput {
+	width: 220px;
+}
+
+#askbtn {
+	margin-left: 8px;	
+}
+
+#answer-area, #comment-area {
+	margin-top: 20px;
+}
+
+#loading {
+	/* img is an inline element in XHTML strict */
+	text-align: center;
+}
+
+#answer {
+	/* centers answer div and sets its width to 50% */
+	margin-left: 25%;
+	margin-right: 25%;
+	font-size: 16px;
+}
+
+#def-form, #comment-form {
+	margin-left: 25%;
+	margin-right: 25%;
+	text-align: center;
+	font-size: 16px;
+}
+
+#comment-list {
+	margin-left: 25%;
+	margin-right: 25%;
+	font-size: 16px;
+}
+
+.footer {
+	text-align: center;
+	margin-top: 40px;
+}

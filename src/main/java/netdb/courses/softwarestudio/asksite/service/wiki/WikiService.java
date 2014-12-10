@@ -10,11 +10,12 @@ import java.net.URL;
  * A service that interacts with Wiki pages.
  */
 public class WikiService {
-	
+
 	/**
 	 * Retrieves the content of a Wiki page with a specific title.
 	 * 
-	 * @param title title of the Wiki page
+	 * @param title
+	 *            title of the Wiki page
 	 * @return null if no Wiki page is found
 	 */
 	public static String retrieve(String title) {
@@ -27,13 +28,13 @@ public class WikiService {
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Convert the title to that acceptable by Wiki. 
+	 * Convert the title to that acceptable by Wiki.
 	 */
 	private static String preprocessString(String title) {
 		// omit leading and trailing whitespace
-		StringBuilder sb = new StringBuilder(title.trim()); 
+		StringBuilder sb = new StringBuilder(title.trim());
 		int i = 0;
 		boolean pw = true; // whitespace encountered in the previous iteration
 		while (i < sb.length()) {
@@ -51,7 +52,7 @@ public class WikiService {
 				sb.setCharAt(i, '_');
 				pw = true;
 			}
-			i++;	
+			i++;
 		}
 
 		return sb.toString();
@@ -60,7 +61,7 @@ public class WikiService {
 	private static String getWikiUrl(String query) {
 		return "http://en.wikipedia.org/wiki/" + query;
 	}
-	
+
 	private static String getContent(URL url) {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(

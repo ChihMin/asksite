@@ -23,9 +23,16 @@ public class DefinitionWikiParser {
 	private static String extractDefinitionParagragh(String content) {
 
 		Document doc = Jsoup.parse(content);
-		String firstParagraph = doc.select("#mw-content-text p").first().text();
+		String paragraph = null;
+		if (doc.select("a[title=Help:Disambiguation]").size() == 0) {
+			paragraph = doc.select("#mw-content-text p").first().text();
+		} else {
 
-		return firstParagraph;
+			paragraph = doc.select("#mw-content-text li").text();
+			System.out.println(paragraph);
+		}
+
+		return paragraph;
 	}
 
 	private static String processDefinitionParagragh(String p) {

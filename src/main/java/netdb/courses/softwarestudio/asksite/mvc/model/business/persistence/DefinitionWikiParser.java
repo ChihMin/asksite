@@ -25,7 +25,6 @@ public class DefinitionWikiParser {
 	private static String extractDefinitionParagragh(String content) {
 
 		/*
-		 * 
 		 * We use jsoup to parse HTML documents, which enables us to model the
 		 * HTML content as a Document.
 		 * 
@@ -52,9 +51,7 @@ public class DefinitionWikiParser {
 
 		} else {
 
-			/*
-			 * For Disambiguation pages, parse all of the contents.
-			 */
+			// For Disambiguation pages, parse all of the contents.
 
 			StringBuilder builder = new StringBuilder();
 

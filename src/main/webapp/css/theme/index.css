@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 body {
-	font-family: Arial,Helvetica,sans-serif;
+	font-family: 'Source Sans Pro', sans-serif;
+	background-color: #FFF;
 }
 
 legend {
@@ -9,8 +10,8 @@ legend {
 }
 
 input {
-	font-family: Arial,Helvetica,sans-serif;
-	border-color: #8E8F8F;
+	font-family: 'Source Sans Pro', sans-serif;
+	border-color: rgba(142, 142, 142, 0.7);
 }
 
 #logo {
@@ -40,5 +41,6 @@ input {
 */
 
 .footer {
-	color: #5E5F5F;
+	color: #5F5F5F;
+	
 }

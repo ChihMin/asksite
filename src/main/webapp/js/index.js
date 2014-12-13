@@ -48,6 +48,7 @@ var getAnswer = function() {
 var showAnswer = function(answer) {
 	var answerEl = document.getElementById('answer');
 	answerEl.innerHTML = escapeHtml(answer);
+	answerEl.innerHTML = answerEl.innerHTML.replace(/\n/ig, '<br />'); 
 	removeClass(answerEl, 'content-hidden');
 	// hide loading indicator
 	var imgEl = document.getElementById('loading');

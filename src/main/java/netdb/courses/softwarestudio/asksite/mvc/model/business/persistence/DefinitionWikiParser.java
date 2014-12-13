@@ -2,6 +2,8 @@ package netdb.courses.softwarestudio.asksite.mvc.model.business.persistence;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * A Wiki page parser for definitions.
@@ -17,40 +19,61 @@ public class DefinitionWikiParser {
 	 */
 	public static String extractDefinition(String content) {
 
-		return extractDefinitionSentence(processDefinitionParagragh(extractDefinitionParagragh(content)));
+		return extractDefinitionSentence((extractDefinitionParagragh(content)));
 	}
 
 	private static String extractDefinitionParagragh(String content) {
 
+		/*
+		 * 
+		 * We use jsoup to parse HTML documents, which enables us to model the
+		 * HTML content as a Document.
+		 * 
+		 * Then we'll be able to retrieve the contents using CSS-style selector
+		 * methods.
+		 * 
+		 * For more details, please refer to: jsoup: http://jsoup.org/ CSS
+		 * Selectors: http://www.w3.org/TR/css3-selectors/
+		 */
+
 		Document doc = Jsoup.parse(content);
 		String paragraph = null;
+
 		if (doc.select("a[title=Help:Disambiguation]").size() == 0) {
-			paragraph = doc.select("#mw-content-text p").first().text();
+
+			// Avoid `coordinate` paragraph.
+			if (doc.select("span[id=coordinates]").size() == 0) {
+				paragraph = doc.select("#mw-content-text > p:not(span)")
+						.first().text();
+			} else {
+				paragraph = doc.select("#mw-content-text > p:not(span)").get(1)
+						.text();
+			}
+
 		} else {
 
-			paragraph = doc.select("#mw-content-text li").text();
-			System.out.println(paragraph);
+			/*
+			 * For Disambiguation pages, parse all of the contents.
+			 */
+
+			StringBuilder builder = new StringBuilder();
+
+			builder.append(doc.select("#mw-content-text p").first().text());
+			builder.append('\n');
+
+			Elements items = doc.select("#mw-content-text > ul > li");
+
+			for (Element item : items) {
+				builder.append('\t');
+				builder.append(item.text());
+				builder.append('\n');
+			}
+
+			paragraph = builder.toString();
+
 		}
 
 		return paragraph;
-	}
-
-	private static String processDefinitionParagragh(String p) {
-		if (p == null)
-			return null;
-		StringBuilder sb = new StringBuilder(p);
-		int start, end = 0;
-
-		while ((start = sb.indexOf("<")) >= 0) {
-			end = sb.indexOf(">", start) + 1;
-			sb.delete(start, end);
-		}
-		while ((start = sb.indexOf("[")) >= 0) {
-			end = sb.indexOf("]", start) + 1;
-			sb.delete(start, end);
-		}
-
-		return sb.toString();
 	}
 
 	private static String extractDefinitionSentence(String p) {
@@ -64,9 +87,9 @@ public class DefinitionWikiParser {
 				return p;
 			}
 			// Find the period of the definition sentence
-			// If the index of the period is less than 20, it is more likely to
-			// be an abbreviation. e.g. "Google Inc."
-			if (end > 50) {
+			// If the index of the period is less than 30, it is more likely to
+			// be an abbreviation. e.g. "Apple Inc."
+			if (end > 30) {
 				return p.substring(0, end + 1);
 			}
 		}

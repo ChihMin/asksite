@@ -41,11 +41,11 @@ public class DefinitionWikiParser {
 		if (doc.select("a[title=Help:Disambiguation]").size() == 0) {
 
 			// Avoid `coordinate` paragraph.
-			if (doc.select("span[id=coordinates]").size() == 0) {
-				paragraph = doc.select("#mw-content-text > p:not(span)")
-						.first().text();
-			} else {
-				paragraph = doc.select("#mw-content-text > p:not(span)").get(1)
+			int index = (doc.select("span[id=coordinates]").size() == 0) ? 0
+					: 1;
+
+			if (doc.select("#mw-content-text > p").size() > index) {
+				paragraph = doc.select("#mw-content-text > p").get(index)
 						.text();
 			}
 

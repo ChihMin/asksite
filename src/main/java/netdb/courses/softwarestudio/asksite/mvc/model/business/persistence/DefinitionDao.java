@@ -21,8 +21,8 @@ public class DefinitionDao extends ModelAwareServlet<Definition> {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// parse request URL
-		String title = URLDecoder.decode(req.getPathInfo().substring(1),
-				"UTF-8");
+		String title = URLDecoder.decode(req.getPathInfo().substring(1)
+				.replace("/", ""), "UTF-8");
 
 		// setup model
 		Definition def = new Definition(title, null);

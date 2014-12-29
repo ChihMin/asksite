@@ -2,6 +2,7 @@ package netdb.courses.softwarestudio.asksite.mvc.model.business.persistence;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +22,14 @@ public class DefinitionDao extends ModelAwareServlet<Definition> {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// parse request URL
-		String title = URLDecoder.decode(req.getPathInfo().substring(1)
-				.replace("/", ""), "UTF-8");
+
+		// Get raw (encoded) URI and replace servlet name to get query string,
+		// using pattern (a.k.a. regular expression):
+		// http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
+		String regex = "^(" + req.getServletPath() + ")";
+		String title = URLDecoder.decode(
+				req.getRequestURI().replaceAll(regex, "").replace("/", ""),
+				StandardCharsets.UTF_8.name());
 
 		// setup model
 		Definition def = new Definition(title, null);

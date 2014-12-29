@@ -20,6 +20,7 @@ var initAskButton = function(){
 var getAnswer = function() {
 	// indicate loading
 	var question = document.getElementById('askinput').value;
+	question = encodeURIComponent(question);
 	answerEl = document.getElementById('answer');
 	addClass(answerEl, 'content-hidden');
 	var imgEl = document.getElementById('loading');
@@ -29,7 +30,7 @@ var getAnswer = function() {
 		showAnswer('');
 		return;
 	}
-	ajaxRequest('GET', encodeURI('definition/' + question), {
+	ajaxRequest('GET', 'definitions/' + question, {
 		'Accept': 'application/json'
 	}, null, function(status, headers, body) { // success callback
 		// show answer

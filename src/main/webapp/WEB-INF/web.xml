@@ -16,7 +16,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>definition-controller</servlet-name>
-		<url-pattern>/definition/*</url-pattern>
+		<url-pattern>/definitions/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

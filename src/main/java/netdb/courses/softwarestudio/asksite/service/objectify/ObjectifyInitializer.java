@@ -1,11 +1,10 @@
 package netdb.courses.softwarestudio.asksite.service.objectify;
 
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import netdb.courses.softwarestudio.asksite.mvc.model.domain.Definition;
+
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,14 +17,16 @@ import com.googlecode.objectify.ObjectifyService;
  * initialized.
  */
 public final class ObjectifyInitializer implements ServletContextListener {
-	private static final Log log = LogFactory.getLog(ObjectifyInitializer.class);
-	
+	private static final Log log = LogFactory
+			.getLog(ObjectifyInitializer.class);
+
 	@Override
 	public void contextInitialized(final ServletContextEvent sce) {
-		if(log.isInfoEnabled())
+		if (log.isInfoEnabled())
 			log.info("Register entity classes");
-		
-		ObjectifyService.register(Definition.class);
+		log.info("Mom !!! I'm HERE !");
+		ObjectifyService
+				.register(netdb.courses.softwarestudio.asksite.mvc.model.domain.Definition.class);
 	}
 
 	@Override

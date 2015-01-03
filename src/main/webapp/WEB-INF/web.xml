@@ -8,8 +8,8 @@
         http://java.sun.com/xml/ns/javaee
         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     version="2.5">
-
-
+   
+	
 	<servlet>
 		<servlet-name>definition-controller</servlet-name>
 		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.control.DefinitionController</servlet-class>
@@ -64,7 +64,11 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-    
+  <!--  
+    <listener>
+		<listener-class>netdb.courses.softwarestudio.asksite.service.objectify.ObjectifyInitializer</listener-class>
+	</listener>
+  -->
     	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Internal URLs</web-resource-name>

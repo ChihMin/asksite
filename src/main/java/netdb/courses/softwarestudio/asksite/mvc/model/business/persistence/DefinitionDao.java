@@ -13,6 +13,9 @@ import netdb.courses.softwarestudio.asksite.mvc.ModelAwareServlet;
 import netdb.courses.softwarestudio.asksite.mvc.model.domain.Definition;
 import netdb.courses.softwarestudio.asksite.service.wiki.WikiService;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.googlecode.objectify.ObjectifyService;
 
 /**
@@ -21,6 +24,9 @@ import com.googlecode.objectify.ObjectifyService;
  */
 @SuppressWarnings("serial")
 public class DefinitionDao extends ModelAwareServlet<Definition> {
+	private static final Log log = LogFactory.getLog(DefinitionDao.class);
+
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -44,7 +50,26 @@ public class DefinitionDao extends ModelAwareServlet<Definition> {
 			def.setDescription(DefinitionWikiParser.extractDefinition(content));
 		} else{
 			List<Definition> d = ObjectifyService.ofy().load().type(Definition.class).list();
+		/*	
+			Definition tar = new Definition("", "");
+			for(int i = 0; i < d.size();++i ){
+				if( d.get(i).getTitle().equals( title ) ){
+					tar = d.get(i);
+					break;
+				}
+			}
+			setModel(req, tar);
+		*/
 			setModel(req, d);
 		}
+	}
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (log.isDebugEnabled())
+			log.debug("Creating a domain object");
+		
+		// save a new message into database
+		Definition def = getModel(req);
+		ObjectifyService.ofy().save().entity( def ).now();
 	}
 }

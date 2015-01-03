@@ -33,8 +33,7 @@ public class DefinitionController extends ResourceController<Definition> {
 		}
 		Definition def = getModel(req);
 		if (def.getDescription() == null) {
-			//forward(req, resp, "/view/404-not-found-view");
-			forward(req, resp, "/view/definition-json-view");
+			forward(req, resp, "/view/404-not-found-view");
 			return;
 		}
 		if (!req.getHeader("Accept").contains("application/json")) {
@@ -65,11 +64,16 @@ public class DefinitionController extends ResourceController<Definition> {
 			String description = def.getDescription();
 			
 			// check contents
+			log.info("Body is " + body );
+			log.info("Title is "+ title );
+			log.info("Description is " + description);
 			if ( title == null || description == null )
 				throw new RuntimeException("Wrong message format.");
-			
+			log.info("Mom !! I'm HERE !!!");
 			// save the message
 			setModel(req, new Definition(title, description));
+			
+			log.info("Dad!! I'm Here !!!");
 			
 		} catch (Exception e) {
 			forward(req, resp, "/view/400-bad-request-view");
@@ -81,11 +85,11 @@ public class DefinitionController extends ResourceController<Definition> {
 		// invoke business logics
 		if (log.isDebugEnabled())
 			log.debug("Invoking business logics");
-		include(req, resp, "/model/business/persistene/definition-dao");
+		include(req, resp, "/model/business/wikiretrieve/definition-dao");
 
 		// dispatch to view
 		if (log.isDebugEnabled())
 			log.debug("Dispatching to view");
-		forward(req, resp, "/view/json/definitions");
+		forward(req, resp, "/view/definition-json-view");
 	}
 }

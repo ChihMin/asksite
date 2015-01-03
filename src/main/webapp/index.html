@@ -8,14 +8,22 @@
 	<link type="text/css" href="css/structure/loading.css" rel="stylesheet" />
 	<link type="text/css" href="css/theme/index.css" rel="stylesheet" />
 	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css' />
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
+
 </head>
 <body>
 <div class="main-area">
 		<div id="logo"><span class="logo-netdb">Don't</span><span>&nbsp;</span><span class="logo-a">A</span><span class="logo-s">s</span><span class="logo-k">k</span><span>&nbsp;</span><span class="logo-netdb">NetDB!</span></div>
 		<div class = "askbar">
-			<input id="askinput" name="question" type="text" autofocus /><input id="askbtn" type="submit" value="&nbsp; Ask Me &nbsp;" />
+			<input id="askinput" name="question" type="text" autofocus />
+			<input id="askbtn" type="submit" value="&nbsp; Ask Me &nbsp;" />
+			<br>
+			<div class="content-hidden" id="addDef">
+				<input id="def-input" name="definition" type="text" autofocus />
+				<input id="add-btn" type="submit" value="&nbsp; Add Definition &nbsp;" />
+			</div>
 		</div>
 		<div id="answer-area">
 

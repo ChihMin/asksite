@@ -1,9 +1,12 @@
 package netdb.courses.softwarestudio.asksite.mvc.model.domain;
 
+import com.googlecode.objectify.annotation.Entity;
+
 
 /**
  * Defines definition domain objects.
  */
+
 public class Definition {
 	private String title;
 	private String description;

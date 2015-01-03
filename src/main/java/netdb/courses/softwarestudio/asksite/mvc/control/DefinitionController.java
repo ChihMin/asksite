@@ -33,7 +33,8 @@ public class DefinitionController extends ResourceController<Definition> {
 		}
 		Definition def = getModel(req);
 		if (def.getDescription() == null) {
-			forward(req, resp, "/view/404-not-found-view");
+			//forward(req, resp, "/view/404-not-found-view");
+			forward(req, resp, "/view/definition-json-view");
 			return;
 		}
 		if (!req.getHeader("Accept").contains("application/json")) {

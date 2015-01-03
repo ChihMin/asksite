@@ -84,6 +84,11 @@
         	<artifactId>jsoup</artifactId>
         	<version>1.7.2</version>
         </dependency>
+        <dependency>
+        	<groupId>com.googlecode.objectify</groupId>
+        	<artifactId>objectify</artifactId>
+        	<version>4.0b3</version>
+        </dependency>
     </dependencies>
 
     <build>

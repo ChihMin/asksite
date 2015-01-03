@@ -3,6 +3,7 @@ package netdb.courses.softwarestudio.asksite.mvc.model.business.persistence;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import netdb.courses.softwarestudio.asksite.mvc.ModelAwareServlet;
 import netdb.courses.softwarestudio.asksite.mvc.model.domain.Definition;
 import netdb.courses.softwarestudio.asksite.service.wiki.WikiService;
+
+import com.googlecode.objectify.ObjectifyService;
 
 /**
  * Provides a way to access the {@link Definition} domain objects and hides the
@@ -39,6 +42,9 @@ public class DefinitionDao extends ModelAwareServlet<Definition> {
 		String content = WikiService.retrieve(title);
 		if (content != null) {
 			def.setDescription(DefinitionWikiParser.extractDefinition(content));
+		} else{
+			List<Definition> d = ObjectifyService.ofy().load().type(Definition.class).list();
+			setModel(req, d);
 		}
 	}
 }

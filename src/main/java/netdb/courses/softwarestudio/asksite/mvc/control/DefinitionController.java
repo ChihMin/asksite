@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import netdb.courses.softwarestudio.asksite.mvc.model.domain.Definition;
+import netdb.courses.softwarestudio.asksite.mvc.view.json.DefinitionJson;
+import netdb.courses.softwarestudio.asksite.service.json.JsonService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,5 +42,49 @@ public class DefinitionController extends ResourceController<Definition> {
 		}
 		forward(req, resp, "/view/definition-json-view");
 	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// setup model in request
+		try {
+			if (log.isDebugEnabled())
+				log.debug("Setting up model in request");
 
+			// check the header
+			if (!req.getHeader("Content-Type").contains("application/json"))
+				throw new RuntimeException("Unacceptable type.");
+
+
+			// deserialize the content of the message
+			String body = getRequestBody(req);
+			
+			DefinitionJson def = JsonService.deserialize(body, DefinitionJson.class);
+			
+			String title = def.getTitle();
+			String description = def.getDescription();
+			
+			// check contents
+			if ( title == null || description == null )
+				throw new RuntimeException("Wrong message format.");
+			
+			// save the message
+			setModel(req, new Definition(title, description));
+			
+		} catch (Exception e) {
+			forward(req, resp, "/view/400-bad-request-view");
+			if (log.isInfoEnabled())
+				log.info("Bad request: " + e.getMessage());
+			return;
+		}
+
+		// invoke business logics
+		if (log.isDebugEnabled())
+			log.debug("Invoking business logics");
+		include(req, resp, "/model/business/persistene/definition-dao");
+
+		// dispatch to view
+		if (log.isDebugEnabled())
+			log.debug("Dispatching to view");
+		forward(req, resp, "/view/json/definitions");
+	}
 }

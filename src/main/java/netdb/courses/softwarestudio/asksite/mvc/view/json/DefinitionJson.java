@@ -7,8 +7,8 @@ import netdb.courses.softwarestudio.asksite.mvc.model.business.persistence.Defin
 import netdb.courses.softwarestudio.asksite.mvc.model.domain.Definition;
 
 public class DefinitionJson {
-	private static final Log log = LogFactory.getLog(DefinitionDao.class);
-
+	
+	private Long id;
 	private String title;
 	private String description;
 	
@@ -19,6 +19,14 @@ public class DefinitionJson {
 		title = def.getTitle();
 		description = def.getDescription();
 		
+	}
+	
+	public Long getId(){
+		return id;
+	}
+	
+	public void setId(Long id){
+		this.id = id;
 	}
 	
 	public String getTitle(){

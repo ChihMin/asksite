@@ -1,13 +1,17 @@
 package netdb.courses.softwarestudio.asksite.mvc.model.domain;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
 
 /**
  * Defines definition domain objects.
  */
-
+@Entity
 public class Definition {
+	
+	@Id
+	private Long id;
 	private String title;
 	private String description;
 
@@ -19,7 +23,15 @@ public class Definition {
 		this.title = title;
 		this.description = description;
 	}
-
+	
+	public Long getId(){
+		return id;
+	}
+	
+	public void setId(Long id){
+		this.id = id;
+	}
+	
 	public String getTitle() {
 		return title;
 	}

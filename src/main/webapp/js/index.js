@@ -67,6 +67,37 @@ var status404Handler = function() {
 
 var host = "http://localhost:8080";
 $(document).ready(function(){
+	function updateMsg() {
+        var request = $.ajax({
+            url: host + "/comments",
+            type: 'GET',
+            success: function (data, status) {
+				$('#comment').empty();
+				
+                var msgArray = eval(data);
+				
+                var i;
+                for (i = 0; i < msgArray.length; i++) {
+                    var msg = msgArray[i];
+                    var title = msg['title'].toString();
+					var cont = msg['content'].toString();
+					cont = cont.replace(/&/g, "&amp;")
+								.replace(/</g, "&lt;")
+								.replace(/>/g, "&gt;")
+								.replace(/"/g, "&quot;")
+								.replace(/'/g, "&#039;");
+
+					$("#comment").append('<div class="list-group-item">' + '<h4 class="list-group-item-heading">[' + title + ']</h4><p>' + cont + '</p><p class="text-right small">' + '</p><hr></div>');
+                }
+
+            },
+            dataType: 'json'
+        });
+    }
+
+    updateMsg();
+
+
 	$('#add-btn').on('click', function () {
 		console.log("post request");
         var title = $('#askinput').val();

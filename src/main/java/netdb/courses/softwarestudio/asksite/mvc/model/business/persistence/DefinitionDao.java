@@ -46,23 +46,22 @@ public class DefinitionDao extends ModelAwareServlet<Definition> {
 
 		// retrieve description
 		String content = WikiService.retrieve(title);
-		if (content != null) {
-			def.setDescription(DefinitionWikiParser.extractDefinition(content));
+		
+		log.info( "WIKI tile is " + title );
+		log.info("WIKI content is " + DefinitionWikiParser.extractDefinition(content) ); 
+		
+		String ansContent = DefinitionWikiParser.extractDefinition(content);
+		if ( ansContent != null) {
+			def.setDescription( ansContent );
 		} else{
 			List<Definition> d = ObjectifyService.ofy().load().type(Definition.class).list();
-		/*	
-			Definition tar = new Definition("", "");
+		
 			for(int i = 0; i < d.size();++i ){
 				if( d.get(i).getTitle().equals( title ) ){
-					tar = d.get(i);
+					def.setDescription( d.get(i).getDescription() );
 					break;
 				}
 			}
-			setModel(req, tar);
-		*/
-			
-			
-			setModel(req, d);
 		}
 	}
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -72,6 +71,13 @@ public class DefinitionDao extends ModelAwareServlet<Definition> {
 		
 		// save a new message into database
 		Definition def = getModel(req);
+		List<Definition> d = ObjectifyService.ofy().load().type(Definition.class).list();
+		for(int i = 0; i < d.size();++i){
+			if( d.get(i).getTitle().equals( def.getTitle()) ){
+				 ObjectifyService.ofy().delete().entity( d.get(i) ).now();
+				 break;
+			}
+		}
 		ObjectifyService.ofy().save().entity( def ).now();
 	}
 }

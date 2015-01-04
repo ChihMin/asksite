@@ -9,7 +9,7 @@
         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     version="2.5">
    
-	
+	<!-- controller -->
 	<servlet>
 		<servlet-name>definition-controller</servlet-name>
 		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.control.DefinitionController</servlet-class>
@@ -19,6 +19,8 @@
 		<url-pattern>/definitions/*</url-pattern>
 	</servlet-mapping>
 	
+	<!-- DAO -->
+
 	<servlet>
 		<servlet-name>definition-dao</servlet-name>
 		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.model.business.persistence.DefinitionDao</servlet-class>
@@ -28,6 +30,16 @@
 		<url-pattern>/model/business/wikiretrieve/definition-dao</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>comment-dao</servlet-name>
+		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.model.business.persistence.CommentDao</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>comment-dao</servlet-name>
+		<url-pattern>/model/business/persistene/comment-dao</url-pattern>
+	</servlet-mapping>
+	<!-- json View -->
+
 	<servlet>
 		<servlet-name>definition-controller-json-view</servlet-name>
 		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.view.DefinitionJsonView</servlet-class>
@@ -61,10 +73,12 @@
 		<url-pattern>/view/406-not-acceptable-view</url-pattern>
 	</servlet-mapping>
 
+	<!-- index -->
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
   
+  	<!-- Listener -->
     <listener>
 		<listener-class>netdb.courses.softwarestudio.asksite.service.objectify.ObjectifyInitializer</listener-class>
 	</listener>

@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.googlecode.objectify.ObjectifyService;
+import netdb.courses.softwarestudio.asksite.mvc.model.domain.*;
 
 /**
  * Objectify needs every persistable object to be registered. This class
@@ -25,8 +26,8 @@ public final class ObjectifyInitializer implements ServletContextListener {
 		if (log.isInfoEnabled())
 			log.info("Register entity classes");
 		log.info("Mom !!! I'm HERE !");
-		ObjectifyService
-				.register(netdb.courses.softwarestudio.asksite.mvc.model.domain.Definition.class);
+		ObjectifyService.register(Definition.class);
+		ObjectifyService.register(Comment.class);
 	}
 
 	@Override

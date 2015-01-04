@@ -18,6 +18,15 @@
 		<servlet-name>definition-controller</servlet-name>
 		<url-pattern>/definitions/*</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>comment-controller</servlet-name>
+		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.control.CommentController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>comment-controller</servlet-name>
+		<url-pattern>/comments/*</url-pattern>
+	</servlet-mapping>
 	
 	<!-- DAO -->
 

@@ -58,7 +58,7 @@ public class DefinitionController extends ResourceController<Definition> {
 			// deserialize the content of the message
 			String body = getRequestBody(req);
 			
-			DefinitionJson def = JsonService.deserialize(body, DefinitionJson.class);
+			DefinitionJson def = JsonService.deserialize(UTF8Coder.encode(body), DefinitionJson.class);
 			
 			String title = def.getTitle();
 			String description = def.getDescription();

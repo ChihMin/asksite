@@ -2,7 +2,7 @@
  * Javascript allows global variables/functions, which locate inside window.
  */
 
-var host = "http://localhost:8080";
+var host = "http://esoteric-code-708.appspot.com";
 $(document).ready(function(){
 	function updateMsg() {
 		var title = $('#askinput').val();

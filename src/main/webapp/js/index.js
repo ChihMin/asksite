@@ -5,8 +5,9 @@
 var host = "http://localhost:8080";
 $(document).ready(function(){
 	function updateMsg() {
+		var title = $('#askinput').val();
         var request = $.ajax({
-            url: host + "/comments",
+            url: host + "/comments/" + title,
             type: 'GET',
             success: function (data, status) {
 				$('#comment').empty();
@@ -55,6 +56,27 @@ $(document).ready(function(){
     });
 
 
+	$('#comment-btn').on('click', function () {
+        var msg = $('#comment-input').val();
+        var title = $('#askinput').val();
+        console.log("title is " + title );
+        console.log( "comment is " + msg );
+        $.ajax({
+            url: host + "/comments",
+            type: 'POST',
+            success: function () {
+                
+				updateMsg();
+            },
+            data: JSON.stringify({
+            	"title": title,
+                "content": msg
+            }),
+            contentType: 'application/json'
+        });
+
+    });
+
 onload = function() {
 	initAskButton();
 };
@@ -63,13 +85,13 @@ var initAskButton = function(){
 	var askButton = document.getElementById('askbtn');
 	var qtext = document.getElementById('askinput');
 	askButton.onclick = function(e) {
-
-    	updateMsg();
+		updateMsg();
 		getAnswer();
 	};
 	qtext.onkeyup = function(e) {
 		if(e.keyCode == 13) // enter pressed
 			getAnswer();
+			updateMsg();
 	}; 
 };
 
@@ -93,6 +115,8 @@ var getAnswer = function() {
 		// show answer
 		var ans = eval('(' + body + ')');
 		showAnswer(ans.description);
+		$('#comment-field').show();
+
 	}, function(status, headers, body) {  // error callback
 		switch (status) {
 			case 404: 

@@ -12,6 +12,7 @@ public class Definition {
 	
 	@Id
 	private Long id;
+	
 	private String title;
 	private String description;
 

@@ -70,14 +70,18 @@ public class DefinitionDao extends ModelAwareServlet<Definition> {
 			log.debug("Creating a domain object");
 		
 		// save a new message into database
+		boolean isFind= false;
 		Definition def = getModel(req);
 		List<Definition> d = ObjectifyService.ofy().load().type(Definition.class).list();
 		for(int i = 0; i < d.size();++i){
 			if( d.get(i).getTitle().equals( def.getTitle()) ){
-				 ObjectifyService.ofy().delete().entity( d.get(i) ).now();
+				 // ObjectifyService.ofy().delete().entity( d.get(i) ).now();
+				 Definition tar = ObjectifyService.ofy().load().entity( d.get(i) ).now();
+				 tar.setDescription( def.getDescription() );
+				 isFind = true;
 				 break;
 			}
 		}
-		ObjectifyService.ofy().save().entity( def ).now();
+		if( !isFind )	ObjectifyService.ofy().save().entity( def ).now();
 	}
 }

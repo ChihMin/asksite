@@ -57,6 +57,16 @@
 		<servlet-name>definition-controller-json-view</servlet-name>
 		<url-pattern>/view/definition-json-view</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>comment-json-view</servlet-name>
+		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.view.CommentJsonView</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>comment-json-view</servlet-name>
+		<url-pattern>/view/json/comments</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<servlet-name>400-bad-request-view</servlet-name>
 		<servlet-class>netdb.courses.softwarestudio.asksite.mvc.view.Http400BadRequestView</servlet-class>

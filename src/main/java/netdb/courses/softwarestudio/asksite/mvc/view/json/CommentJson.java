@@ -1,7 +1,6 @@
 package netdb.courses.softwarestudio.asksite.mvc.view.json;
 
 
-import netdb.courses.softwarestudio.asksite.mvc.model.business.persistence.DefinitionDao;
 import netdb.courses.softwarestudio.asksite.mvc.model.domain.Comment;
 
 public class CommentJson {

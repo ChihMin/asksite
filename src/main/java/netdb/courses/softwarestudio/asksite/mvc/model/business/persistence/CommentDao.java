@@ -2,6 +2,9 @@ package netdb.courses.softwarestudio.asksite.mvc.model.business.persistence;
 
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -26,9 +29,24 @@ public class CommentDao extends ModelAwareServlet<Comment> {
 		if (log.isDebugEnabled())
 			log.debug("Getting/listing domain object(s)");
 		
+		String regex = "^(" + req.getServletPath() + ")";
+		String title = URLDecoder.decode(
+				req.getRequestURI().replaceAll(regex, "").replace("/", ""),
+				StandardCharsets.UTF_8.name());
+		log.info("URL_PARSER : " + title); 
+		
 		// load the message list from database
 		List<Comment> ms = ObjectifyService.ofy().load().type(Comment.class).list();
-		setModel(req, ms);
+		
+		log.info( req.getAttribute("title") );
+		
+		List<Comment> ans = new ArrayList<Comment>();
+		for(int i = 0; i < ms.size(); ++i){
+			if( ms.get(i).getTitle().equals( title ) ){
+				ans.add( ms.get( i ) );
+			}
+		}
+		setModel(req, ans);
 	}
 
 	@Override

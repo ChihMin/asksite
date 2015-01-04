@@ -2,6 +2,58 @@
  * Javascript allows global variables/functions, which locate inside window.
  */
 
+var host = "http://localhost:8080";
+$(document).ready(function(){
+	function updateMsg() {
+        var request = $.ajax({
+            url: host + "/comments",
+            type: 'GET',
+            success: function (data, status) {
+				$('#comment').empty();
+				
+                var msgArray = eval(data);
+				
+                var i;
+                for (i = 0; i < msgArray.length; i++) {
+                    var msg = msgArray[i];
+                    var title = msg['title'].toString();
+					var cont = msg['content'].toString();
+					cont = cont.replace(/&/g, "&amp;")
+								.replace(/</g, "&lt;")
+								.replace(/>/g, "&gt;")
+								.replace(/"/g, "&quot;")
+								.replace(/'/g, "&#039;");
+
+					$("#comment").append('<div class="list-group-item">' + '<h4 class="list-group-item-heading">[' + title + ']</h4><p>' + cont + '</p><p class="text-right small">' + '</p><hr></div>');
+                }
+
+            },
+            dataType: 'json'
+        });
+    };
+
+
+
+	$('#add-btn').on('click', function () {
+		console.log("post request");
+        var title = $('#askinput').val();
+        var description = $('#def-input').val();
+        console.log( description );
+        $.ajax({
+            url: host + "/definitions",
+            type: 'POST',
+            success: function () {
+				showAnswer('I have add the definitions!!');
+            },
+            data: JSON.stringify({
+
+                "description": description,
+                "title": title
+            }),
+            contentType: 'application/json'
+        });
+    });
+
 
 onload = function() {
 	initAskButton();
@@ -11,6 +63,8 @@ var initAskButton = function(){
 	var askButton = document.getElementById('askbtn');
 	var qtext = document.getElementById('askinput');
 	askButton.onclick = function(e) {
+
+    	updateMsg();
 		getAnswer();
 	};
 	qtext.onkeyup = function(e) {
@@ -27,7 +81,8 @@ var getAnswer = function() {
 	addClass(answerEl, 'content-hidden');
 	var imgEl = document.getElementById('loading');
 	removeClass(imgEl, 'content-hidden');
-	
+	console.log( question );
+
 	if (question == '') {
 		showAnswer('');
 		return;
@@ -65,56 +120,4 @@ var status404Handler = function() {
 
 };
 
-var host = "http://localhost:8080";
-$(document).ready(function(){
-	function updateMsg() {
-        var request = $.ajax({
-            url: host + "/comments",
-            type: 'GET',
-            success: function (data, status) {
-				$('#comment').empty();
-				
-                var msgArray = eval(data);
-				
-                var i;
-                for (i = 0; i < msgArray.length; i++) {
-                    var msg = msgArray[i];
-                    var title = msg['title'].toString();
-					var cont = msg['content'].toString();
-					cont = cont.replace(/&/g, "&amp;")
-								.replace(/</g, "&lt;")
-								.replace(/>/g, "&gt;")
-								.replace(/"/g, "&quot;")
-								.replace(/'/g, "&#039;");
-
-					$("#comment").append('<div class="list-group-item">' + '<h4 class="list-group-item-heading">[' + title + ']</h4><p>' + cont + '</p><p class="text-right small">' + '</p><hr></div>');
-                }
-
-            },
-            dataType: 'json'
-        });
-    }
-
-    updateMsg();
-
-
-	$('#add-btn').on('click', function () {
-		console.log("post request");
-        var title = $('#askinput').val();
-        var description = $('#def-input').val();
-        console.log( description );
-        $.ajax({
-            url: host + "/definitions",
-            type: 'POST',
-            success: function () {
-				showAnswer('I have add the definitions!!');
-            },
-            data: JSON.stringify({
-
-                "description": description,
-                "title": title
-            }),
-            contentType: 'application/json'
-        });
-    });
 });

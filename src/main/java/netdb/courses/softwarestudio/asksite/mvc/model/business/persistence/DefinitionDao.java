@@ -75,13 +75,13 @@ public class DefinitionDao extends ModelAwareServlet<Definition> {
 		List<Definition> d = ObjectifyService.ofy().load().type(Definition.class).list();
 		for(int i = 0; i < d.size();++i){
 			if( d.get(i).getTitle().equals( def.getTitle()) ){
-				 // ObjectifyService.ofy().delete().entity( d.get(i) ).now();
-				 Definition tar = ObjectifyService.ofy().load().entity( d.get(i) ).now();
-				 tar.setDescription( def.getDescription() );
+				 ObjectifyService.ofy().delete().entity( d.get(i) ).now();
+				 //Definition tar = ObjectifyService.ofy().load().entity( d.get(i) ).now();
+				 //tar.setDescription( def.getDescription() );
 				 isFind = true;
 				 break;
 			}
 		}
-		if( !isFind )	ObjectifyService.ofy().save().entity( def ).now();
+		ObjectifyService.ofy().save().entity( def ).now();
 	}
 }
